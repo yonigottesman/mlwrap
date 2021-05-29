@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import 'form_macros.html' as fm %}
+
+{% block app_content %}
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html"><h1 class="display-3">kmeans</h1></a>
+    <div class="row">
+        <div class="col-md-4 card">
+            <form method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                {{ fm.input(form.n_clusters) }}
+                {{ fm.input(form.init, class="form-select") }}
+                {{ fm.input(form.n_init) }}
+                {{ fm.input(form.max_iter) }}
+                {{ fm.input(form.tol) }}
+                {{ fm.input(form.algorithm, class="form-select") }}
+                {{ fm.input(form.csv) }}
+                {{ form.download(class="btn btn-primary") }}
+                {{ form.visualize(class="btn btn-primary") }}
+            </form>
+        </div>
+
+        <div class="col">
+            <iframe srcdoc="{{ chart }}" style="min-height: 500px; min-width: 500px;"></iframe>
+        </div>
+    </div>
+{% endblock %}
