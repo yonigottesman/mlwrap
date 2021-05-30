@@ -12,6 +12,6 @@ class KmeansForm(FlaskForm):
     max_iter = IntegerField(label='max_iter', validators=[DataRequired()])
     tol = FloatField('tol', validators=[DataRequired()])
     algorithm = SelectField('algorithm', choices=['auto', 'full', 'elkan'], validators=[DataRequired()])
-    csv = FileField('data', validators=[DataRequired()])
+    csv = FileField('data', validators=[DataRequired()], description='csv file with no header and no index column')
     download = SubmitField('download')
     visualize = SubmitField('visualize', render_kw={'class': 'btn-danger'})

@@ -1,7 +1,7 @@
 from io import StringIO, BytesIO
 
 from flask import (
-    render_template, redirect, url_for, send_file,
+    render_template, redirect, url_for, send_file, flash,
 )
 from sklearn.decomposition import PCA
 
@@ -26,9 +26,12 @@ def index():
         estimator = KMeans(**{x: y for x, y in form.data.items()
                               if x in ['n_clusters', 'init', 'n_init', 'max_iter', 'tol', 'algorithm']})
         file = form.csv.data
-        data = pd.read_csv(file, header=None)
-        estimator.fit(data)
-
+        try:
+            data = pd.read_csv(file, header=None)
+            estimator.fit(data)
+        except Exception as e:
+            flash('Error with csv file', category='alert-danger')
+            return redirect(url_for('cluster.index'))
         if form.download.data is True:
             buffer = BytesIO()
 
